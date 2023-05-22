@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { get } from "../services/authServices";
 
 function AllProducts() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("/api/products")
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data);
+    get('/products/all-products')
+      .then((results) => {
+        setProducts(results.data);
       })
       .catch((error) => {
         console.log(error);
@@ -22,6 +22,7 @@ function AllProducts() {
           <h3>{product.name}</h3>
           <p>{product.description}</p>
           <p>Price: ${product.price}</p>
+          <img src={product.imageUrl} alt={product.name} />
         </div>
       ))}
     </div>

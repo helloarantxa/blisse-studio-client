@@ -1,7 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.Context";
 
 const Navbar = () => {
+  const { logOutUser } = useContext(AuthContext);
   return (
     <nav>
       <Link to="/">Home</Link>
@@ -11,8 +14,9 @@ const Navbar = () => {
       <Link to="/shop">Shop</Link>
       <Link to="/login">Login</Link>
       <Link to="/signup">Sign Up</Link>
+      <button onClick={logOutUser}>Logout</button>
     </nav>
   );
 };
 
-export default Navbar;    
+export default Navbar;

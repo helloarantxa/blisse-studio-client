@@ -1,5 +1,10 @@
 import { useState, createContext } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { get } from "../services/authServices";
+import { useEffect } from "react";
+
+
 const API_URL = "http://localhost:4000";
  
 const AuthContext = createContext();
@@ -8,6 +13,7 @@ function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate()
   
 
   const storeToken = (token) => {    
@@ -20,10 +26,7 @@ function AuthProvider({ children }) {
     
     if (storedToken) {
 
-      axios.get(
-        `${API_URL}/auth/verify`, 
-        { headers: { Authorization: `Bearer ${storedToken}`} }
-      )
+      get('/auth/verify')
       .then((response) => {
 
         const user = response.data;
@@ -58,7 +61,16 @@ function AuthProvider({ children }) {
 
     removeToken();
     authenticateUser();
+    console.log('user', user)
+    navigate('/')
   }  
+
+
+  useEffect(() => {
+
+    authenticateUser()
+
+  }, [])
 
  
   return (
