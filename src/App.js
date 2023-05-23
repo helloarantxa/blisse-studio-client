@@ -1,4 +1,4 @@
-import "./App.css";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
@@ -7,10 +7,14 @@ import Connect from "./pages/ConnectPage";
 import Portfolio from "./pages/PortfolioPage";
 import Shop from "./pages/ShopPage";
 import Login from "./pages/LoginPage";
-import SignUp from "./pages/SignUp"
-import CreateProduct from './components/CreateProduct';
-import AllProducts from './components/AllProducts';
-import ProductDetails from './components/ProductDetails';
+import SignUp from "./pages/SignUp";
+import CreateProduct from "./components/CreateProduct";
+import AllProducts from "./components/AllProducts";
+import ProductDetails from "./components/ProductDetails";
+import EditProduct from "./pages/EditProduct";
+
+
+
 
 
 function App() {
@@ -26,9 +30,11 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/create-product" element={<CreateProduct/>} />
-        <Route path="/all-products" element={<AllProducts/>} />
-        <Route path="/product-details/:id" element={<ProductDetails/>} />
+        <Route path="/create-product" element={<CreateProduct />} />
+        <Route path="/all-products" element={<AllProducts />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/products/:id/edit" element={<EditProduct />} />
+       
       </Routes>
     </div>
   );

@@ -17,10 +17,11 @@ function ShopPage() {
           </li>
 
 
-          { user.isAdmin && 
+          { user && user.isAdmin && 
           <li>
             <Link to="/create-product">Create Product</Link>
           </li> }
+          
         </ul>
       </nav>
     </div>

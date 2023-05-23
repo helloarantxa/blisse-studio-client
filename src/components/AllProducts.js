@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { get } from "../services/authServices";
+import { useNavigate } from "react-router-dom";
 
 function AllProducts() {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     get('/products/all-products')
@@ -14,6 +16,10 @@ function AllProducts() {
       });
   }, []);
 
+  const handleEdit = (productId) => {
+    navigate(`/edit-product/${productId}`);
+  };
+
   return (
     <div>
       <h1>All Products</h1>
@@ -23,6 +29,7 @@ function AllProducts() {
           <p>{product.description}</p>
           <p>Price: ${product.price}</p>
           <img src={product.imageUrl} alt={product.name} />
+          <button onClick={() => handleEdit(product._id)}>Edit</button>
         </div>
       ))}
     </div>

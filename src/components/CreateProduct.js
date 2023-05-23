@@ -1,42 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function CreateProduct() {
-  // const [name, setName] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [imageUrl, setImageUrl] = useState("");
-
   const [newProduct, setNewProduct] = useState({
-    name: '',
-    description: '',
-    price: '',
-    imageUrl: ''
-})
-const handleChange = (e) => {
-        setNewProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-    }
-
-
+    name: "",
+    description: "",
+    price: "",
+    imageUrl: ""
+  });
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/products/all-products")
+      .then((response) => {
+        setProducts(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const handleChange = (e) => {
+    setNewProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log('info', newProduct)
+    axios
+      .post("http://localhost:4000/products/new-product", newProduct)
+      .then((response) => {
+        console.log("newProduct", response.data);
+        setProducts((prevProducts) => [...prevProducts, response.data]);
+        navigate("/products");
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error
+      });
+  };
 
-    axios.post('http://localhost:4000/products/new-product', newProduct)
-  .then((response) => {
-    console.log('newProduct', response.data);
-    navigate('/all-products');
-  })
-
-  .catch((error) => {
-    console.error(error);
-    // Handle error
-  });
-    // submission and create a new product
+  const handleEdit = (productId) => {
+    navigate(`/products/${productId}/edit`);
   };
 
   return (
@@ -72,6 +80,18 @@ const handleChange = (e) => {
         />
         <button type="submit">Create Product</button>
       </form>
+
+      <h2>All Products</h2>
+      {products.map((product) => (
+        <div key={product._id}>
+          <h3>{product.name}</h3>
+          <p>{product.description}</p>
+          <p>Price: ${product.price}</p>
+          <img src={product.imageUrl} alt={product.name} />
+
+          <button onClick={() => handleEdit(product._id)}>Edit</button>
+        </div>
+      ))}
     </div>
   );
 }
