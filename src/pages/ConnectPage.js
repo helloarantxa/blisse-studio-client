@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { post, get } from "../services/authServices";
-
 
 function ConnectPage() {
   const [addConnectCard, setAddConnectCard] = useState({
@@ -12,20 +11,49 @@ function ConnectPage() {
     projectType: "",
     projectDescription: "",
   });
+  const [connectCards, setConnectCards] = useState([]);
+
+  //ADDED MAY23
+  // const [isAdmin, setIsAdmin] = useState(true);
+
   const handleChange = (e) => {
     setAddConnectCard((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    post(`/connect/connectCard`, addConnectCard)
+    post("/connect/connectCard", addConnectCard)
       .then((response) => {
         console.log(response);
+        // Refresh the list of connect cards
+        fetchConnectCards();
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  const fetchConnectCards = () => {
+    get("/connect/connectCards")
+      .then((response) => {
+        if (response)
+        setConnectCards(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchConnectCards();
+
+
+ // Check if the user is an admin <---ADDED may23
+//  const isAdminUser = localStorage.getItem("isAdmin") === "true";
+//  setIsAdmin(isAdminUser);
+}, 
+[]);
 
   return (
     <div>
@@ -98,7 +126,7 @@ function ConnectPage() {
             <option value="Party">Party</option>
             <option value="Photoshop">Photoshop</option>
             <option value="Social">Social</option>
-            <option value="Weddin">Wedding</option>
+            <option value="Wedding">Wedding</option>
             <option value="Other">Other</option>
           </select>
         </label>
@@ -114,6 +142,25 @@ function ConnectPage() {
         <br />
         <button type="submit">Submit</button>
       </form>
+      
+
+      {/* Submitted Request forms */}
+      {/* {isAdmin && ( */}
+        <div>
+        {connectCards.length>0 && <h2>Information Requests</h2>}    
+        {connectCards.map((card) => (
+            <div key={card._id}>
+            <h3>Email: {card.email}</h3>
+            <p>Full Name: {card.fullName}</p>
+            <p>Phone Number: {card.phoneNumber}</p>
+            <p>Project Date: {card.projectDate}</p>
+            <p>Location: {card.location}</p>
+            <p>Project Type: {card.projectType}</p>
+            <p>Project Description: {card.projectDescription}</p>
+            </div>
+          ))}
+        </div>
+      {/* )} */}
     </div>
   );
 }

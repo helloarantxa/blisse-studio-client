@@ -1,4 +1,4 @@
-import { post } from "./authService";
+import { post } from "./authServices";
 
 export const fileChange = (e) => {
     

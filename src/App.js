@@ -11,7 +11,6 @@ import SignUp from "./pages/SignUp";
 import CreateProduct from "./components/CreateProduct";
 import AllProducts from "./components/AllProducts";
 import ProductDetails from "./components/ProductDetails";
-// import EditProduct from "./pages/EditProduct";
 import ConnectCardsPage from "./components/ConnectCardsPage";
 
 
@@ -34,7 +33,6 @@ function App() {
         <Route path="/create-product" element={<CreateProduct />} />
         <Route path="/all-products" element={<AllProducts />} />
         <Route path="/products/:id" element={<ProductDetails />} />
-        {/* <Route path="/products/:id/edit" element={<EditProduct />} /> */}
         <Route path="/connect-cards" element={<ConnectCardsPage />} />
        
       </Routes>

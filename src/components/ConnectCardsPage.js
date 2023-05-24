@@ -1,3 +1,4 @@
+//Sumbits Connectcards
 import React, { useState, useEffect } from "react";
 import { get } from "../services/authServices";
 
@@ -33,3 +34,4 @@ function ConnectCardsPage() {
 }
 
 export default ConnectCardsPage;
+

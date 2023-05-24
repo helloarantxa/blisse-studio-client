@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { post, get } from "../services/authServices"
-
+import { post, get } from "../services/authServices";
+import { fileChange } from "../services/fileChange";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -15,10 +15,10 @@ function ProductDetails() {
     price: "",
     imageUrl: "",
   });
+  // console.log(editedProduct);
 
   useEffect(() => {
-  
-      get(`/products/product-details/${id}`)
+    get(`/products/product-details/${id}`)
       .then((response) => {
         setProduct(response.data);
         setEditedProduct(response.data);
@@ -35,6 +35,21 @@ function ProductDetails() {
   const handleCancelEdit = () => {
     setEditMode(false);
     setEditedProduct(product);
+  };
+
+  // change for image upload using Cloudinary
+  const handleFileChange = (e) => {
+    fileChange(e)
+      .then((response) => {
+        console.log(response.data);
+        setEditedProduct((prev) => ({
+          ...prev,
+          [e.target.name]: response.data.image,
+        }));
+      })
+      .catch((err) => {
+        console.log("Error while uploading the file:", err);
+      });
   };
 
   const handleChange = (e) => {
@@ -63,7 +78,6 @@ function ProductDetails() {
       })
       .catch((error) => {
         console.error(error);
-       
       });
   };
 
@@ -104,11 +118,11 @@ function ProductDetails() {
             value={editedProduct.price}
             name="price"
           />
+          
+          {/* image upload */}
           <input
-            type="text"
-            placeholder="Image URL"
-            onChange={handleChange}
-            value={editedProduct.imageUrl}
+            type="file"
+            onChange={handleFileChange}
             name="imageUrl"
           />
           <button type="submit">Save</button>

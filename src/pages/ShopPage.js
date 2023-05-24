@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.Context";
+import AllProducts from "../components/AllProducts";
 
 function ShopPage() {
 
@@ -9,14 +10,12 @@ function ShopPage() {
 
   return (
     <div>
-      <h1 className="shop">Shop</h1>
+      
       <nav>
         <ul>
-          <li>
-            <Link to="/all-products">All Products</Link>
-          </li>
-
-
+          
+            {/* <Link to="/all-products">All Products</Link> */}
+        
           { user && user.isAdmin && 
           <li>
             <Link to="/create-product">Create Product</Link>
@@ -24,6 +23,7 @@ function ShopPage() {
           
         </ul>
       </nav>
+      <AllProducts/>
     </div>
   );
 }

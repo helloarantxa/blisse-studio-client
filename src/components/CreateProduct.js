@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {fileChange } from "../services/fileChange"
+
 
 function CreateProduct() {
   const [newProduct, setNewProduct] = useState({
@@ -23,6 +25,22 @@ function CreateProduct() {
       });
   }, []);
 
+  const handleFileChange = (e) => {
+
+    fileChange(e)
+      .then((response) => {
+        console.log(response.data);
+        setNewProduct((prev) => ({...prev, [e.target.name]: response.data.image}));
+
+      })
+      .catch((err) => {
+
+        console.log("Error while uploading the file: ", err);
+      });
+
+}
+
+
   const handleChange = (e) => {
     setNewProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -35,7 +53,7 @@ function CreateProduct() {
       .then((response) => {
         console.log("newProduct", response.data);
         setProducts((prevProducts) => [...prevProducts, response.data]);
-        navigate("/products");
+        navigate("/all-products");
       })
       .catch((error) => {
         console.error(error);
@@ -72,9 +90,9 @@ function CreateProduct() {
           id="price"
         />
         <input
-          type="text"
+          type="file"
           placeholder="Image URL"
-          onChange={handleChange}
+          onChange={handleFileChange}
           name="imageUrl"
           id="imageUrl"
         />
