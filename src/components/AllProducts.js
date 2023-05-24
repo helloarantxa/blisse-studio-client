@@ -29,7 +29,7 @@ function AllProducts() {
           <p>{product.description}</p>
           <p>Price: ${product.price}</p>
           <img src={product.imageUrl} alt={product.name} />
-          <button onClick={() => handleEdit(product._id)}>Edit</button>
+          {/* <button onClick={() => handleEdit(product._id)}>Edit</button> */}
         </div>
       ))}
     </div>

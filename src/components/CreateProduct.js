@@ -44,7 +44,7 @@ function CreateProduct() {
   };
 
   const handleEdit = (productId) => {
-    navigate(`/products/${productId}/edit`);
+    navigate(`/products/${productId}`);
   };
 
   return (

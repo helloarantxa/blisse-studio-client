@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { post, get } from "../services/authServices"
+
 
 function ProductDetails() {
   const { id } = useParams();
@@ -15,8 +17,8 @@ function ProductDetails() {
   });
 
   useEffect(() => {
-    axios
-      .get(`/api/product-details/${id}`)
+  
+      get(`/products/product-details/${id}`)
       .then((response) => {
         setProduct(response.data);
         setEditedProduct(response.data);
@@ -42,8 +44,7 @@ function ProductDetails() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .put(`/api/edit-product/${id}`, editedProduct)
+    post(`/products/edit-product/${id}`, editedProduct)
       .then((response) => {
         console.log("Product edited:", response.data);
         setProduct(editedProduct);
@@ -51,20 +52,18 @@ function ProductDetails() {
       })
       .catch((error) => {
         console.error(error);
-        // Handle error
       });
   };
 
   const handleDelete = () => {
-    axios
-      .delete(`/api/delete-product/${id}`)
+    get(`/products/delete-product/${id}`)
       .then(() => {
         console.log("Product deleted");
         navigate("/all-products");
       })
       .catch((error) => {
         console.error(error);
-        // Handle error
+       
       });
   };
 
