@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-// import axios from "axios";
 import { post, get } from "../services/authServices";
 import { fileChange } from "../services/fileChange";
 
@@ -75,7 +74,7 @@ function ProductDetails() {
     get(`/products/delete-product/${id}`)
       .then(() => {
         console.log("Product deleted");
-        navigate("/all-products");
+        navigate("/create-product");
       })
       .catch((error) => {
         console.error(error);
@@ -94,6 +93,7 @@ function ProductDetails() {
           <h3>{product.name}</h3>
           <p>{product.description}</p>
           <p>Price: ${product.price}</p>
+          <img src={product.imageUrl} alt={product.name} />
           <button onClick={handleEdit}>Edit</button>
           <button onClick={handleDelete}>Delete</button>
         </div>

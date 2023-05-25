@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {fileChange } from "../services/fileChange"
-
+import { post, get } from "../services/authServices";
+import { fileChange } from "../services/fileChange";
 
 function CreateProduct() {
   const [newProduct, setNewProduct] = useState({
@@ -15,8 +14,7 @@ function CreateProduct() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/products/all-products")
+    get("/products/all-products")
       .then((response) => {
         setProducts(response.data);
       })
@@ -26,20 +24,15 @@ function CreateProduct() {
   }, []);
 
   const handleFileChange = (e) => {
-
     fileChange(e)
       .then((response) => {
         console.log(response.data);
-        setNewProduct((prev) => ({...prev, [e.target.name]: response.data.image}));
-
+        setNewProduct((prev) => ({ ...prev, [e.target.name]: response.data.image }));
       })
       .catch((err) => {
-
         console.log("Error while uploading the file: ", err);
       });
-
-}
-
+  }
 
   const handleChange = (e) => {
     setNewProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -48,8 +41,7 @@ function CreateProduct() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:4000/products/new-product", newProduct)
+    post("/products/new-product", newProduct)
       .then((response) => {
         console.log("newProduct", response.data);
         setProducts((prevProducts) => [...prevProducts, response.data]);
@@ -57,7 +49,6 @@ function CreateProduct() {
       })
       .catch((error) => {
         console.error(error);
-        // Handle error
       });
   };
 
@@ -106,7 +97,6 @@ function CreateProduct() {
           <p>{product.description}</p>
           <p>Price: ${product.price}</p>
           <img src={product.imageUrl} alt={product.name} />
-
           <button onClick={() => handleEdit(product._id)}>Edit</button>
         </div>
       ))}

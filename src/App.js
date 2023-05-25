@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import About from "./pages/AboutPage";
@@ -13,12 +13,11 @@ import AllProducts from "./components/AllProducts";
 import ProductDetails from "./components/ProductDetails";
 import ConnectCardsPage from "./components/ConnectCardsPage";
 import AdminAbout from "./components/AdminAbout";
-
-
-
-
+import Footer from "./components/Footer";
 
 function App() {
+  const location = useLocation();
+  
   return (
     <div className="App">
       <Navbar />
@@ -36,10 +35,12 @@ function App() {
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/connect-cards" element={<ConnectCardsPage />} />
         <Route path="/admin/about" element={<AdminAbout />} />
-
       </Routes>
+
+      {location.pathname !== '/' && <Footer />}
     </div>
   );
 }
 
 export default App;
+

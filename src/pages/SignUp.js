@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
- 
-const API_URL = "http://localhost:4000";
+import { post } from "../services/authServices";
+
+// const API_URL = "http://localhost:4000";
  
  
 function SignupPage() {
@@ -25,7 +25,7 @@ function SignupPage() {
     };
  
   
-    axios.post(`${API_URL}/auth/signup`, requestBody)
+    post('/auth/signup', requestBody)
       .then((response) => {
         navigate('/login');
       })
@@ -41,6 +41,14 @@ function SignupPage() {
       <h1>Sign Up</h1>
  
       <form onSubmit={handleSignupSubmit}>
+
+        <label>Name:</label>
+        <input 
+          type="text"
+          name="name"
+          value={name}
+          onChange={handleName}
+        />
         <label>Email:</label>
         <input 
           type="email"
@@ -48,7 +56,7 @@ function SignupPage() {
           value={email}
           onChange={handleEmail}
         />
- 
+        
         <label>Password:</label>
         <input 
           type="password"
@@ -57,13 +65,7 @@ function SignupPage() {
           onChange={handlePassword}
         />
  
-        <label>Name:</label>
-        <input 
-          type="text"
-          name="name"
-          value={name}
-          onChange={handleName}
-        />
+       
  
         <button type="submit">Sign Up</button>
       </form>

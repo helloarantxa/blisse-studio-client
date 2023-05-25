@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { post, get } from "../services/authServices";
-import { AuthContext } from "../context/auth.Context" 
-
+import { AuthContext } from "../context/auth.Context";
 
 function ConnectPage() {
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const [addConnectCard, setAddConnectCard] = useState({
     email: "",
     fullName: "",
@@ -15,6 +14,7 @@ function ConnectPage() {
     projectDescription: "",
   });
   const [connectCards, setConnectCards] = useState([]);
+  const [submissionStatus, setSubmissionStatus] = useState(null);
 
   const handleChange = (e) => {
     setAddConnectCard((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -26,26 +26,33 @@ function ConnectPage() {
     post("/connect/connectCard", addConnectCard)
       .then((response) => {
         console.log(response);
-        // Refresh the list of connect cards
-        // fetchConnectCards();
+        setSubmissionStatus("success");
+        setAddConnectCard({
+          email: "",
+          fullName: "",
+          phoneNumber: "",
+          projectDate: "",
+          location: "",
+          projectType: "",
+          projectDescription: "",
+        });
       })
       .catch((err) => {
         console.log(err);
+        setSubmissionStatus("error");
       });
   };
 
   const fetchConnectCards = () => {
     get("/connect/connectCards")
       .then((response) => {
-        if (response)
-        setConnectCards(response.data);
+        if (response) setConnectCards(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  //Delete Cards
   const handleDelete = (cardId) => {
     post(`/connect/delete-card/${cardId}`)
       .then(() => {
@@ -56,14 +63,14 @@ function ConnectPage() {
         console.error(error);
       });
   };
- 
-  useEffect(() => { 
-    if ( user )
-    fetchConnectCards();
 
+  useEffect(() => {
+    if (user) {
+      fetchConnectCards();
+    }
+  }, []);
 
-}, 
-[]);
+  //--- [user] ???
 
   return (
     <div>
@@ -152,13 +159,16 @@ function ConnectPage() {
         <br />
         <button type="submit">Submit</button>
       </form>
-      
 
+      <div>
+        {submissionStatus === "success" && <p>Submission successful!</p>}
+        {submissionStatus === "error" && (
+          <p>Submission failed. Please try again.</p>
+        )}
 
-        <div>
-        {connectCards.length>0 && <h2>Information Requests</h2>}    
+        {connectCards.length > 0 && <h2>Information Requests</h2>}
         {connectCards.map((card) => (
-            <div key={card._id}>
+          <div key={card._id}>
             <h3>Email: {card.email}</h3>
             <p>Full Name: {card.fullName}</p>
             <p>Phone Number: {card.phoneNumber}</p>
@@ -167,10 +177,9 @@ function ConnectPage() {
             <p>Project Type: {card.projectType}</p>
             <p>Project Description: {card.projectDescription}</p>
             <button onClick={() => handleDelete(card._id)}>Delete</button>
-
-            </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

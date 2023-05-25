@@ -9,12 +9,10 @@ const AboutPage = () => {
   const { user } = useContext(AuthContext)
   const [aboutInfo, setAboutInfo] = useState(null);
 
-console.log(user);
 
   useEffect(() => {
     get('/about/about')
       .then(response => {
-        console.log(response);
   
         setAboutInfo(response.data);
       })
@@ -22,12 +20,11 @@ console.log(user);
         console.log(error);
       });
   }, []);
-  console.log(aboutInfo)
 
   return (
     <div>
-      {/* <h1>About Page</h1> */}
 
+      {/* <h1>About Page</h1> */}
       {user?.isAdmin === true && <AdminAbout/> }
 
       {aboutInfo ? (

@@ -7,11 +7,11 @@ const Navbar = () => {
   const { isLoggedIn, logOutUser } = useContext(AuthContext);
   return (
     <nav>
-      <Link to="/">Home</Link>
-      <Link to="/about">About</Link>
-      <Link to="/connect">Connect</Link>
-      <Link to="/portfolio">Portfolio</Link>
-      <Link to="/shop">Shop</Link>
+      <Link to="/">HOME</Link>
+      <Link to="/about">ABOUT</Link>
+      <Link to="/connect">WORK WITH US</Link>
+      <Link to="/portfolio">MY WORK</Link>
+      <Link to="/shop">SHOP</Link>
       
       {isLoggedIn ? (
         <button onClick={logOutUser}>Logout</button>
