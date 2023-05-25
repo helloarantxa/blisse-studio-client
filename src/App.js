@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
-import About from "./pages/About";
+import About from "./pages/AboutPage";
 import Connect from "./pages/ConnectPage";
 import Portfolio from "./pages/PortfolioPage";
 import Shop from "./pages/ShopPage";
@@ -12,6 +12,7 @@ import CreateProduct from "./components/CreateProduct";
 import AllProducts from "./components/AllProducts";
 import ProductDetails from "./components/ProductDetails";
 import ConnectCardsPage from "./components/ConnectCardsPage";
+import AdminAbout from "./components/AdminAbout";
 
 
 
@@ -34,7 +35,8 @@ function App() {
         <Route path="/all-products" element={<AllProducts />} />
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/connect-cards" element={<ConnectCardsPage />} />
-       
+        <Route path="/admin/about" element={<AdminAbout />} />
+
       </Routes>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { post, get } from "../services/authServices";
 import { fileChange } from "../services/fileChange";
 
@@ -70,6 +70,7 @@ function ProductDetails() {
       });
   };
 
+  //Delete Product
   const handleDelete = () => {
     get(`/products/delete-product/${id}`)
       .then(() => {

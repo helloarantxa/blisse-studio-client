@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { post, get } from "../services/authServices";
+import { AuthContext } from "../context/auth.Context" 
+
 
 function ConnectPage() {
+  const { user } = useContext(AuthContext)
   const [addConnectCard, setAddConnectCard] = useState({
     email: "",
     fullName: "",
@@ -12,9 +15,6 @@ function ConnectPage() {
     projectDescription: "",
   });
   const [connectCards, setConnectCards] = useState([]);
-
-  //ADDED MAY23
-  // const [isAdmin, setIsAdmin] = useState(true);
 
   const handleChange = (e) => {
     setAddConnectCard((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -27,7 +27,7 @@ function ConnectPage() {
       .then((response) => {
         console.log(response);
         // Refresh the list of connect cards
-        fetchConnectCards();
+        // fetchConnectCards();
       })
       .catch((err) => {
         console.log(err);
@@ -45,13 +45,23 @@ function ConnectPage() {
       });
   };
 
-  useEffect(() => {
+  //Delete Cards
+  const handleDelete = (cardId) => {
+    post(`/connect/delete-card/${cardId}`)
+      .then(() => {
+        console.log("Card deleted");
+        fetchConnectCards();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+ 
+  useEffect(() => { 
+    if ( user )
     fetchConnectCards();
 
 
- // Check if the user is an admin <---ADDED may23
-//  const isAdminUser = localStorage.getItem("isAdmin") === "true";
-//  setIsAdmin(isAdminUser);
 }, 
 []);
 
@@ -144,8 +154,7 @@ function ConnectPage() {
       </form>
       
 
-      {/* Submitted Request forms */}
-      {/* {isAdmin && ( */}
+
         <div>
         {connectCards.length>0 && <h2>Information Requests</h2>}    
         {connectCards.map((card) => (
@@ -157,10 +166,11 @@ function ConnectPage() {
             <p>Location: {card.location}</p>
             <p>Project Type: {card.projectType}</p>
             <p>Project Description: {card.projectDescription}</p>
+            <button onClick={() => handleDelete(card._id)}>Delete</button>
+
             </div>
           ))}
         </div>
-      {/* )} */}
     </div>
   );
 }
