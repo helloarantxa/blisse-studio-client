@@ -2,7 +2,7 @@ function HomePage() {
   return (
     <div className="logo-container">
       <img
-        src="https://res.cloudinary.com/dt8b5pu9l/image/upload/v1683235206/bliss-logo_alowog.png"
+        src="https://res.cloudinary.com/dn0dezspf/image/upload/v1685055503/march2023-countries-code-along/Blisse/Blisse_xqcufj.png"
         alt="Bliss Logo"
       />
     </div>
