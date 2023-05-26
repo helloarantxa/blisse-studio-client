@@ -32,7 +32,7 @@ function CreateProduct() {
       .catch((err) => {
         console.log("Error while uploading the file: ", err);
       });
-  }
+  };
 
   const handleChange = (e) => {
     setNewProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -57,47 +57,76 @@ function CreateProduct() {
   };
 
   return (
-    <div>
-      <h1>Create Product</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={handleChange}
-          name="name"
-          id="name"
-        />
-        <textarea
-          placeholder="Description"
-          onChange={handleChange}
-          name="description"
-          id="description"
-        />
-        <input
-          type="number"
-          placeholder="Price"
-          onChange={handleChange}
-          name="price"
-          id="price"
-        />
-        <input
-          type="file"
-          placeholder="Image URL"
-          onChange={handleFileChange}
-          name="imageUrl"
-          id="imageUrl"
-        />
-        <button type="submit">Create Product</button>
-      </form>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Create Product</h1>
 
-      <h2>All Products</h2>
+
+     <form onSubmit={handleSubmit} className="space-y-4">
+  <div className="flex flex-col">
+    <label htmlFor="name" className="text-gray-600">Name</label>
+    <input
+      type="text"
+      placeholder="Name"
+      onChange={handleChange}
+      name="name"
+      id="name"
+      className="border border-gray-300 rounded-md p-2 mt-1"
+    />
+  </div>
+  <div className="flex flex-col">
+    <label htmlFor="description" className="text-gray-600">Description</label>
+    <textarea
+      placeholder="Description"
+      onChange={handleChange}
+      name="description"
+      id="description"
+      className="border border-gray-300 rounded-md p-2 mt-1"
+    />
+  </div>
+  <div className="flex flex-col">
+    <label htmlFor="price" className="text-gray-600">Price</label>
+    <input
+      type="number"
+      placeholder="Price"
+      onChange={handleChange}
+      name="price"
+      id="price"
+      className="border border-gray-300 rounded-md p-2 mt-1"
+    />
+  </div>
+  <div className="flex flex-col">
+    <label htmlFor="imageUrl" className="text-gray-600">Image URL</label>
+    <input
+      type="file"
+      onChange={handleFileChange}
+      name="imageUrl"
+      id="imageUrl"
+      className="border border-gray-300 rounded-md p-2 mt-1"
+    />
+  </div>
+  <button
+    type="submit"
+    className="bg-gray-300 text-gray-600 rounded-md px-4 py-2 font-semibold hover:bg-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 col-span-2 sm:col-auto"
+  >
+    Create Product
+  </button>
+</form>
+
+
+
+      <h2 className="text-xl font-bold mt-8">Products Created</h2>
       {products.map((product) => (
-        <div key={product._id}>
-          <h3>{product.name}</h3>
+        <div key={product._id} className="border border-gray-300 rounded-md p-4 mt-4">
+          <h3 className="text-lg font-bold">{product.name}</h3>
           <p>{product.description}</p>
           <p>Price: ${product.price}</p>
-          <img src={product.imageUrl} alt={product.name} />
-          <button onClick={() => handleEdit(product._id)}>Edit</button>
+          <img src={product.imageUrl} alt={product.name} className="mt-4" />
+          <button
+            onClick={() => handleEdit(product._id)}
+            className="bg-gray-300 text-gray-600 rounded-md px-4 py-2 mt-4 font-semibold hover:bg-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-600"
+          >
+            Edit
+          </button>
         </div>
       ))}
     </div>
