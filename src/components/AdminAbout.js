@@ -3,6 +3,7 @@ import { post } from "../services/authServices";
 
 const AdminAbout = () => {
   const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [information, setInformation] = useState("");
   const [image, setImage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -10,12 +11,12 @@ const AdminAbout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!title || !information || !image) {
+    if (!title || !name || !information || !image) {
       setErrorMessage("Please fill in all fields");
       return;
     }
 
-    const formData = { title, information, image };
+    const formData = { title, name, information, image };
 
     // Submit the form data to the server
     post("/about/about", formData)
@@ -30,11 +31,13 @@ const AdminAbout = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">MEET YOUR FLORIST</h1>
+      {/* <h1 className="text-2xl font-bold mb-4">MEET YOUR FLORIST</h1> */}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="flex flex-col">
-          <label htmlFor="title" className="text-gray-600">Title</label>
+          <label htmlFor="title" className="text-gray-600">
+            Title
+          </label>
           <input
             type="text"
             placeholder="Title"
@@ -44,7 +47,21 @@ const AdminAbout = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="information" className="text-gray-600">Information</label>
+          <label htmlFor="name" className="text-gray-600">
+            Name
+          </label>
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)} 
+            className="border border-gray-300 rounded-md p-2 mt-1"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="information" className="text-gray-600">
+            Information
+          </label>
           <input
             type="text"
             placeholder="Information"
@@ -54,7 +71,9 @@ const AdminAbout = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="image" className="text-gray-600">Image URL</label>
+          <label htmlFor="image" className="text-gray-600">
+            Image URL
+          </label>
           <input
             type="text"
             placeholder="Image URL"

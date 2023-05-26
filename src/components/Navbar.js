@@ -39,11 +39,11 @@ const Navbar = () => {
                 <div className="flex-shrink-0 flex items-center">
 
                   {/* Your logo */}
-                  {/* <img
-                    className="block h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  <img
+                    className="block h-9 w-auto"
+                    src="https://res.cloudinary.com/dn0dezspf/image/upload/v1685070038/march2023-countries-code-along/Blisse/Candles_Product_logo_lahaok.png"
                     alt="Your Company"
-                  /> */}
+                  />
                   
                 </div>
                 <div className="hidden sm:block sm:ml-6">
