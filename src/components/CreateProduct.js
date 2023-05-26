@@ -115,8 +115,11 @@ function CreateProduct() {
 
 
       <h2 className="text-xl font-bold mt-8">Products Created</h2>
+      
       {products.map((product) => (
+        
         <div key={product._id} className="border border-gray-300 rounded-md p-4 mt-4">
+        
           <h3 className="text-lg font-bold">{product.name}</h3>
           <p>{product.description}</p>
           <p>Price: ${product.price}</p>
