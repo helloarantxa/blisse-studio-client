@@ -17,7 +17,7 @@ function AllProducts() {
 
   return (
     <div className="p-6">
-      <h1 className="text-xl font-bold mt-8"> All Products</h1>
+      <h1 className="text-2xl font-bold mb-4">ALL PRODUCTS</h1>
 
       {products.map((product) => (
 

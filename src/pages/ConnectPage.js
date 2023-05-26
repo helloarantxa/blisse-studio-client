@@ -70,70 +70,82 @@ function ConnectPage() {
     }
   }, []);
 
-  //--- [user] ???
-
   return (
-    <div>
-      <h1>Connect Page</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email address *
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">CONNECT PAGE</h1>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="flex flex-col">
+          <label htmlFor="email" className="text-gray-600">
+            Email address *
+          </label>
           <input
             name="email"
             type="email"
             required
             value={addConnectCard.email}
             onChange={handleChange}
+            className="border border-gray-300 rounded-md p-2 mt-1"
           />
-        </label>
-        <br />
-        <label>
-          Full name *
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="fullName" className="text-gray-600">
+            Full name *
+          </label>
           <input
             name="fullName"
             type="text"
             required
             value={addConnectCard.fullName}
             onChange={handleChange}
+            className="border border-gray-300 rounded-md p-2 mt-1"
           />
-        </label>
-        <br />
-        <label>
-          Your phone number
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="phoneNumber" className="text-gray-600">
+            Your phone number
+          </label>
           <input
             name="phoneNumber"
             type="text"
             value={addConnectCard.phoneNumber}
             onChange={handleChange}
+            className="border border-gray-300 rounded-md p-2 mt-1"
           />
-        </label>
-        <br />
-        <label>
-          Project date
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="projectDate" className="text-gray-600">
+            Project date
+          </label>
           <input
             name="projectDate"
             type="text"
             value={addConnectCard.projectDate}
             onChange={handleChange}
+            className="border border-gray-300 rounded-md p-2 mt-1"
           />
-        </label>
-        <br />
-        <label>
-          Location
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="location" className="text-gray-600">
+            Location
+          </label>
           <input
             name="location"
             type="text"
             value={addConnectCard.location}
             onChange={handleChange}
+            className="border border-gray-300 rounded-md p-2 mt-1"
           />
-        </label>
-        <br />
-        <label>
-          What type of project are you hosting? *
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="projectType" className="text-gray-600">
+            What type of project are you hosting? *
+          </label>
           <select
             name="projectType"
             value={addConnectCard.projectType}
             onChange={handleChange}
+            className="border border-gray-300 rounded-md p-2 mt-1"
           >
             <option value="">Select an option</option>
             <option value="Corporate">Corporate</option>
@@ -146,18 +158,24 @@ function ConnectPage() {
             <option value="Wedding">Wedding</option>
             <option value="Other">Other</option>
           </select>
-        </label>
-        <br />
-        <label>
-          Tell us about your project
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="projectDescription" className="text-gray-600">
+            Tell us about your project
+          </label>
           <textarea
             name="projectDescription"
             value={addConnectCard.projectDescription}
             onChange={handleChange}
+            className="border border-gray-300 rounded-md p-2 mt-1"
           ></textarea>
-        </label>
-        <br />
-        <button type="submit">Submit</button>
+        </div>
+        <button
+          type="submit"
+          className="bg-gray-300 text-gray-600 rounded-md px-4 py-2 font-semibold hover:bg-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 col-span-2 sm:col-auto"
+        >
+          Submit
+        </button>
       </form>
 
       <div>
@@ -166,17 +184,41 @@ function ConnectPage() {
           <p>Submission failed. Please try again.</p>
         )}
 
-        {connectCards.length > 0 && <h2>Information Requests</h2>}
+        {connectCards.length > 0 && (
+          <h2 className="text-xl font-bold mt-8"> Information Requests</h2>
+        )}
         {connectCards.map((card) => (
-          <div key={card._id}>
-            <h3>Email: {card.email}</h3>
-            <p>Full Name: {card.fullName}</p>
-            <p>Phone Number: {card.phoneNumber}</p>
-            <p>Project Date: {card.projectDate}</p>
-            <p>Location: {card.location}</p>
-            <p>Project Type: {card.projectType}</p>
-            <p>Project Description: {card.projectDescription}</p>
-            <button onClick={() => handleDelete(card._id)}>Delete</button>
+          <div
+            key={card._id}
+            className="border border-gray-300 rounded-md p-4 mt-4"
+          >
+            <h3>
+              <strong>Email:</strong> {card.email}
+            </h3>
+            <p>
+              <strong>Full Name:</strong> {card.fullName}
+            </p>
+            <p>
+              <strong>Phone Number:</strong> {card.phoneNumber}
+            </p>
+            <p>
+              <strong>Project Date:</strong> {card.projectDate}
+            </p>
+            <p>
+              <strong>Location:</strong> {card.location}
+            </p>
+            <p>
+              <strong>Project Type:</strong> {card.projectType}
+            </p>
+            <p>
+              <strong>Project Description:</strong> {card.projectDescription}
+            </p>
+            <button
+              onClick={() => handleDelete(card._id)}
+              className="bg-gray-300 text-gray-600 rounded-md px-4 py-2 mt-4 font-semibold hover:bg-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-600"
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
